@@ -32,8 +32,6 @@ def max_profit(prices)
     i += 1
   end
 
-  #p "locals #{locals}"
-  #p "globals #{globals}"
   globals[1].last || 0
 end
 
