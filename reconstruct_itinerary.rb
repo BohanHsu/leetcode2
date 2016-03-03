@@ -15,18 +15,37 @@ def find_itinerary(tickets)
     v.sort!
   end
 
-  departure = "JFK"
-  itinereay = [departure]
+  itinereay = ["JFK"]
 
-  count.times do
-    puts "destination=#{departure}, edges=#{edges[departure]}"
-    if edges[departure].empty?
+  while itinereay.length < count + 1 do
+    if edges[itinereay.last].nil? || edges[itinereay.last].empty?
+      wrong_destination = itinereay.pop
+      wrong_destination_index = index_to_insert(edges[itinereay.last], wrong_destination)
+      while wrong_destination_index == edges[itinereay.last].length && itinereay.length > 1
+        edges[itinereay.last] << wrong_destination
+        wrong_destination = itinereay.pop
+        wrong_destination_index = index_to_insert(edges[itinereay.last], wrong_destination)
+      end
+      destination = edges[itinereay.last][wrong_destination_index]
+      edges[itinereay.last][wrong_destination_index] = wrong_destination
     else
-      destination = edges[departure].shift
-      itinereay << destination
-      departure = destination
+      destination = edges[itinereay.last].shift
     end
+    itinereay << destination
   end
 
   itinereay
+end
+
+def index_to_insert(array, elem)
+  return 0 if array.empty?
+  return 0if elem < array[0]
+  i = 1
+  while i < array.length do
+    if array[i] > elem && array[i-1] <= elem
+      return i
+    end
+    i += 1
+  end
+  return array.length
 end

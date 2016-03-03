@@ -18,7 +18,7 @@ describe 'find_itinerary(tickets)' do
 
   it 'should work2' do
     tickets = [["JFK","KUL"],["JFK","NRT"],["NRT","JFK"]]
-    expected_result = ["JFK", "NRT", "KUL"]
+    expected_result = ["JFK", "NRT", "JFK", "KUL"]
     find_itinerary(tickets).must_equal(expected_result)
   end
   
