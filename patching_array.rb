@@ -11,14 +11,17 @@ def min_patches(nums, n)
       sum = 1
       count = 0
       i = 1
+      return count if sum >= n
       if nums.length >=2 && (nums[1] == 1 || nums[1] == 2)
         sum += nums[1]
         i = 2
       end
+      return count if sum >= n
     elsif nums[0] == 2
       sum = 3
       count = 1
       i = 1
+      return count if sum >= n
     else
       sum = 1
       count = 1

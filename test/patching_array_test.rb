@@ -52,4 +52,16 @@ describe 'min_patches(nums, n)' do
     expected_result = 28
     min_patches(nums, n).must_equal(expected_result)
   end
+  
+  it 'should work4' do
+    nums = [1,2,32]
+    n = 1
+    expected_result = 0
+    min_patches(nums, n).must_equal(expected_result)
+
+    nums = [1,2,32]
+    n = 2
+    expected_result = 0
+    min_patches(nums, n).must_equal(expected_result)
+  end
 end
