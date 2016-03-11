@@ -22,12 +22,15 @@ end
 def max_n_number(nums, n)
   result = []
   nums.each_with_index do |ele, idx|
-    while !result.empty? && n - result.length < (nums.length  - 1 - i) && result.last < ele do
+    #puts "ele=#{ele}, f1=#{!result.empty?}, f2=#{n - result.length}, #{(nums.length  - 1 - idx)}, result=#{result}"
+    while !result.empty? && n - result.length <= (nums.length  - 1 - idx) && result.last < ele do
       result.pop
     end
-    res << ele
+    if result.length < n
+      result << ele
+    end
   end
-  res
+  result
 end
 
 def merge(nums1, nums2)
@@ -36,12 +39,8 @@ def merge(nums1, nums2)
     compare_result = compare(nums1, nums2)
     if compare_result < 0
       result << nums1.shift
-    elsif compare_result > 0
-      result << nums2.shift
     else
-      result += nums1
-      result += nums2
-      return result
+      result << nums2.shift
     end
   end
   return result
@@ -72,5 +71,11 @@ def compare(nums1, nums2)
       j += 1
     end
   end
-  return 0
+  if nums1[i%nums1.length] > nums2[j%nums2.length]
+    return -1
+  elsif nums1[i%nums1.length] < nums2[j%nums2.length]
+    return 1
+  else
+    return 0
+  end
 end
