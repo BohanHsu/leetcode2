@@ -19,4 +19,10 @@ describe 'remove_duplicate_letters(s)' do
     expected_result = ""
     remove_duplicate_letters(s).must_equal(expected_result)
   end
+
+  it 'should work2' do
+    s = "bbcaac"
+    expected_result = "bac"
+    remove_duplicate_letters(s).must_equal(expected_result)
+  end
 end
