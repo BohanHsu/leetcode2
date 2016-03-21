@@ -50,4 +50,10 @@ describe 'max_profit(prices)' do
     expected_result = 3
     max_profit(prices).must_equal(expected_result)
   end
+
+  it 'should work1' do
+    prices = [6,1,3,2,4,7]
+    expected_result = 6
+    max_profit(prices).must_equal(expected_result)
+  end
 end
