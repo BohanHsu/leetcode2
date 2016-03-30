@@ -23,4 +23,16 @@ describe 'word_pattern(pattern, str)' do
     expected_result = false
     word_pattern(pattern, str).must_equal(expected_result)
   end
+
+  it 'should work2' do
+    pattern = "aaa"
+    str = "dog dog dog dog"
+    expected_result = false
+    word_pattern(pattern, str).must_equal(expected_result)
+
+    pattern = "aaaaa"
+    str = "dog dog dog dog"
+    expected_result = false
+    word_pattern(pattern, str).must_equal(expected_result)
+  end
 end

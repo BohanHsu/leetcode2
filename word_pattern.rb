@@ -4,6 +4,9 @@
 def word_pattern(pattern, str)
   patterns = pattern.split(//)
   strs = str.split(/\s/)
+
+  return false if patterns.length != strs.length
+
   p_s = {}
   s_p = {}
 
