@@ -1,20 +1,21 @@
 # @param {Integer[]} nums
 # @return {Integer}
 def find_duplicate(nums)
-  s = nums[0]
-  f = nums[s]
+  from = 1
+  to = nums.length - 1
 
-  while s != f do
-    s = nums[s]
-    f = nums[nums[f]]
-  end
+   while true do
+     from, to = check_range(nums, from, to)
+     if from == to
+       return from
+     end
+   end
+end
 
-  f = 0
+def check_range(nums, from, to)
+  mid = (from + to) / 2
 
-  while f != s do
-    s = nums[s]
-    f = nums[f]
-  end
-  
-  return s
+  nums.each.select do |ele|
+    ele <= mid && ele >= from
+  end.length > mid - from + 1 ? [from, mid] : [mid + 1, to]
 end
