@@ -8,13 +8,13 @@
 def first_bad_version(n)
   is_bad_cache = {}
 
-  from = 0
-  to = n.length
+  from = 1
+  to = n + 1
 
   mid = (from + to) / 2
 
-  while !is_first_bad_version?(mid, n, is_bad_cache) do
-    search_direction = get_check_direction(mid, n, is_bad_cache)
+  while !is_first_bad_version?(mid, is_bad_cache) do
+    search_direction = get_check_direction(mid, is_bad_cache)
     if search_direction == :search_right
       from = mid
     elsif search_direction == :search_left
@@ -27,16 +27,16 @@ def first_bad_version(n)
   return mid
 end
 
-def get_check_direction(idx, versions, is_bad_cache)
-  if !check_is_bad_version?(is_bad_cache, versions[idx-1]) && !check_is_bad_version?(is_bad_cache, versions[idx])
+def get_check_direction(version, is_bad_cache)
+  if !check_is_bad_version?(is_bad_cache, version-1) && !check_is_bad_version?(is_bad_cache, version)
     return :search_right
-  elsif check_is_bad_version?(is_bad_cache, versions[idx-1]) && check_is_bad_version?(is_bad_cache, versions[idx])
+  elsif check_is_bad_version?(is_bad_cache, version-1) && check_is_bad_version?(is_bad_cache, version)
     return :search_left
   end
 end
 
-def is_first_bad_version?(idx, versions, is_bad_cache)
-  return idx == 0 && check_is_bad_version?(is_bad_cache, versions[idx]) || !check_is_bad_version?(is_bad_cache, versions[idx-1]) && check_is_bad_version?(is_bad_cache, versions[idx])
+def is_first_bad_version?(version, is_bad_cache)
+  return version == 1 && check_is_bad_version?(is_bad_cache, version) || !check_is_bad_version?(is_bad_cache, version-1) && check_is_bad_version?(is_bad_cache, version)
 end
 
 def check_is_bad_version?(is_bad_cache, version)
