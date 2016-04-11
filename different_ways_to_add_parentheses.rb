@@ -1,6 +1,12 @@
 # @param {String} input
 # @return {Integer[]}
 def diff_ways_to_compute(input)
+  if input.length == 0
+    return []
+  end
+  if input.length == 1
+    return [input.to_i]
+  end
   num_of_operand = (input.length + 1) / 2
   expressions = {
     2 => ["(?#?)"]

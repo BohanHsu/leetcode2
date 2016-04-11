@@ -14,6 +14,16 @@ describe 'diff_ways_to_compute(input)' do
     input = "2"
     expected_result = [2]
     diff_ways_to_compute(input).sort.must_equal(expected_result.sort)
+
+    input = ""
+    expected_result = []
+    diff_ways_to_compute(input).sort.must_equal(expected_result.sort)
+  end
+
+  it 'should work3' do
+    input = "11"
+    expected_result = [11]
+    diff_ways_to_compute(input).sort.must_equal(expected_result.sort)
   end
 end
 
