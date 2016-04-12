@@ -35,3 +35,11 @@ describe 'expression_pattern_to_expr(expression, target)' do
     expression_pattern_to_expr(expression, target).must_equal(expected_result)
   end
 end
+
+describe 'expr_to_array(input)' do
+  it 'should work4' do
+    input = "2*33-444*5555"
+    expected_result = ["2", "*", "33", "-", "444", "*", "5555"]
+    expr_to_array(input).must_equal(expected_result)
+  end
+end
