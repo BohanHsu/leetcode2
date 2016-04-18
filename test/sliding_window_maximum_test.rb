@@ -37,38 +37,38 @@ describe 'Heap' do
     @heap = Heap.new(5)
   end
 
-  it 'should work' do
-    5.times do |i|
-      @heap.add(5 - i)
-    end
+  #it 'should work0' do
+  #  5.times do |i|
+  #    @heap.add(5 - i)
+  #  end
 
-    @heap.pop.must_equal(5)
+  #  @heap.pop.must_equal(5)
 
-    @heap.add 6
-    @heap.pop.must_equal(6)
+  #  @heap.add 6
+  #  @heap.pop.must_equal(6)
 
-    @heap.add 2
-    @heap.peek.must_equal(4)
-    @heap.pop.must_equal(4)
-    @heap.peek.must_equal(3)
-    @heap.pop.must_equal(3)
-    @heap.peek.must_equal(2)
-    @heap.pop.must_equal(2)
-    @heap.peek.must_equal(2)
-    @heap.pop.must_equal(2)
-    @heap.peek.must_equal(1)
-    @heap.pop.must_equal(1)
+  #  @heap.add 2
+  #  @heap.peek.must_equal(4)
+  #  @heap.pop.must_equal(4)
+  #  @heap.peek.must_equal(3)
+  #  @heap.pop.must_equal(3)
+  #  @heap.peek.must_equal(2)
+  #  @heap.pop.must_equal(2)
+  #  @heap.peek.must_equal(2)
+  #  @heap.pop.must_equal(2)
+  #  @heap.peek.must_equal(1)
+  #  @heap.pop.must_equal(1)
 
-    5.times do |i|
-      @heap.add(5 - i)
-    end
+  #  5.times do |i|
+  #    @heap.add(5 - i)
+  #  end
 
-    @heap.pop.must_equal(5)
-    @heap.add(4)
-    @heap.delete(4)
-    @heap.delete(4)
-    @heap.delete(3)
-    @heap.delete(1)
-    @heap.pop.must_equal(2)
-  end
+  #  @heap.pop.must_equal(5)
+  #  @heap.add(4)
+  #  @heap.delete(4)
+  #  @heap.delete(4)
+  #  @heap.delete(3)
+  #  @heap.delete(1)
+  #  @heap.pop.must_equal(2)
+  #end
 end
