@@ -1,0 +1,40 @@
+# fork from master branch
+git checkout master
+
+function get_branch() {
+  git branch --no-color | grep -E '^\*' | awk '{print $2}' || echo "default_value"
+}
+branch_name=`get_branch`;
+s2="master"
+if [ "$branch_name" != "$s2" ]; then
+  echo ERROR: cannot check to master branch
+  exit 1
+fi
+
+NUM=$1
+NUM=${NUM:0:-1}
+#echo LEETCODE: new branch: $NUM
+git checkout -b p$NUM
+
+TITLE=$2
+
+for ((i=3;i<=$#;i++));
+do
+  TITLE+="_${!i}"
+done;
+
+#echo $TITLE
+title=$TITLE
+title="$(tr [A-Z] [a-z] <<< "$title")"
+#echo $a
+
+CODE=$title".rb"
+TESTCODE="test/"$title"_test.rb"
+
+#echo $CODE
+#echo $TESTCODE
+
+touch $CODE
+touch $TESTCODE
+
+vim -p $CODE $TESTCODE
