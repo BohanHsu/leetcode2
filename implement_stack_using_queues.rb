@@ -8,6 +8,7 @@ class Stack
   # @return {void}
   def push(x)
     @queue << x
+    nil
   end
 
   # @return {void}
