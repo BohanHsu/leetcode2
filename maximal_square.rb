@@ -4,7 +4,7 @@ def maximal_square(matrix)
   return 0 if matrix.length == 0 || matrix[0].length == 0
 
   matrix.map! do |row|
-    row.chars.map do |chr|
+    row.map do |chr|
       chr.to_i
     end
   end
@@ -26,25 +26,34 @@ def maximal_square(matrix)
 end
 
 def max_in_line(line)
-  max = -1
-  stack = []
-
+  max_area = -1
+  buffer = []
   line.each_with_index do |num, i|
-    while !stack.empty? && line[stack[-1]] >= num do
-      j = stack.pop
-      max = [max, [(i - j), line[j]].min ** 2].max
+    if !buffer.empty? && line[buffer[-1]] > num
+      while !buffer.empty? && line[buffer[-1]] > num do
+        j = buffer.pop
+        max_area = [max_area, get_square(line[j], (i - j))].max
+        max_area = [max_area, get_square(line[j], (i - (buffer.empty? ? 0 : buffer[-1] + 1)))].max
+      end
     end
-    max = [[num, (i - (stack.empty? ? -1 : stack[-1]))].min ** 2, max].max
-    stack << i
+
+    buffer << i
   end
 
-  queue = stack
-  while !queue.empty? do
-    j = queue[0]
-    while j >= 1 && line[j-1] >= line[j] do
-      j -= 1
+  j = 0
+  while j < buffer.length do
+    k = j - 1
+    while k >= 0 && line[buffer[k]] == line[buffer[j]] do
+      k -= 1
     end
-    max = [max, [(line.length - 1 - j  + 1), line[queue.shift]].min ** 2].max
+
+    max_area = [max_area, get_square((buffer[-1] - (k < 0 ? -1 : buffer[k])), line[buffer[j]])].max
+    j += 1
   end
-  max
+
+  max_area
+end
+
+def get_square(a, b)
+  [a, b].min ** 2
 end

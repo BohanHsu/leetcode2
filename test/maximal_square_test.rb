@@ -53,15 +53,36 @@ describe 'max_in_line(line)' do
     expected_result = 9
     max_in_line(line).must_equal(expected_result)
   end
+
+  it 'should work7' do
+    line = [3,3,4,0]
+    expected_result = 9
+    max_in_line(line).must_equal(expected_result)
+  end
+
+  it 'should work9' do
+    line = [2,5,3,4,1]
+    expected_result = 9
+    max_in_line(line).must_equal(expected_result)
+  end
+
+  it 'should work11' do
+    line = [0, 5, 5, 5, 5, 0, 0, 0]
+    expected_result = 16
+    max_in_line(line).must_equal(expected_result)
+  end
+
+  
+
 end
 
 describe 'maximal_square(matrix)' do
   it 'should work2' do
     matrix = [
-      "10100",
-      "10111",
-      "11111",
-      "10010"
+      "10100".chars,
+      "10111".chars,
+      "11111".chars,
+      "10010".chars
     ]
 
 
@@ -78,19 +99,59 @@ describe 'maximal_square(matrix)' do
   end
 
   it 'should work3' do
-    matrix = ["0"]
+    matrix = [["0"]]
     expected_result = 0
     maximal_square(matrix).must_equal(expected_result)
   end
 
   it 'should work4' do
     matrix = [
-      "0001",
-      "1101",
-      "1111",
-      "0111",
-      "0111"]
+      "0001".chars,
+      "1101".chars,
+      "1111".chars,
+      "0111".chars,
+      "0111".chars]
     expected_result = 9
+    maximal_square(matrix).must_equal(expected_result)
+  end
+
+  it 'should work6' do
+    matrix = [
+      "0010".chars,
+      "1111".chars,
+      "1111".chars,
+      "1110".chars,
+      "1100".chars,
+      "1111".chars,
+      "1110".chars]
+    expected_result = 9
+    maximal_square(matrix).must_equal(expected_result)
+  end
+
+  
+
+  it 'should work8' do
+    matrix = [
+      "01101".chars,
+      "11010".chars,
+      "01110".chars,
+      "11110".chars,
+      "11111".chars,
+      "00000".chars
+    ]
+    expected_result = 9
+    maximal_square(matrix).must_equal(expected_result)
+  end
+
+  it 'should work10' do
+    
+    matrix = [
+      "11111111".chars,
+      "11111110".chars,
+      "11111110".chars,
+      "11111000".chars,
+      "01111000".chars]
+    expected_result = 16
     maximal_square(matrix).must_equal(expected_result)
   end
 end
