@@ -48,35 +48,49 @@ describe 'max_in_line(line)' do
     max_in_line(line).must_equal(expected_result)
   end
 
-  describe 'maximal_square(matrix)' do
-    it 'should work2' do
-      matrix = [[1,0,1,0,0],
-      [1,0,1,1,1],
-      [1,1,1,1,1],
-      [1,0,0,1,0]]
+  it 'should work5' do
+    line = [0,4,3,5]
+    expected_result = 9
+    max_in_line(line).must_equal(expected_result)
+  end
+end
 
-      matrix.each do |row|
-        row.map! do |i|
-          "#{i}"
-        end
-      end
+describe 'maximal_square(matrix)' do
+  it 'should work2' do
+    matrix = [
+      "10100",
+      "10111",
+      "11111",
+      "10010"
+    ]
 
-      expected_result = 4
-      maximal_square(matrix).must_equal(expected_result)
 
-      matrix = []
-      expected_result = 0
-      maximal_square(matrix).must_equal(expected_result)
+    expected_result = 4
+    maximal_square(matrix).must_equal(expected_result)
 
-      matrix = [[]]
-      expected_result = 0
-      maximal_square(matrix).must_equal(expected_result)
-    end
+    matrix = []
+    expected_result = 0
+    maximal_square(matrix).must_equal(expected_result)
 
-    it 'should work3' do
-      matrix = ["0"]
-      expected_result = 0
-      maximal_square(matrix).must_equal(expected_result)
-    end
+    matrix = [[]]
+    expected_result = 0
+    maximal_square(matrix).must_equal(expected_result)
+  end
+
+  it 'should work3' do
+    matrix = ["0"]
+    expected_result = 0
+    maximal_square(matrix).must_equal(expected_result)
+  end
+
+  it 'should work4' do
+    matrix = [
+      "0001",
+      "1101",
+      "1111",
+      "0111",
+      "0111"]
+    expected_result = 9
+    maximal_square(matrix).must_equal(expected_result)
   end
 end

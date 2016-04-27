@@ -3,13 +3,8 @@
 def maximal_square(matrix)
   return 0 if matrix.length == 0 || matrix[0].length == 0
 
-
-  if matrix[0].class == String
-    matrix = [matrix]
-  end
-
-  matrix.each do |row|
-    row.map! do |chr|
+  matrix.map! do |row|
+    row.chars.map do |chr|
       chr.to_i
     end
   end
@@ -46,7 +41,7 @@ def max_in_line(line)
   queue = stack
   while !queue.empty? do
     j = queue[0]
-    while j >= 1 && line[j-1] == line[j] do
+    while j >= 1 && line[j-1] >= line[j] do
       j -= 1
     end
     max = [max, [(line.length - 1 - j  + 1), line[queue.shift]].min ** 2].max
