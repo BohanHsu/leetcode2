@@ -12,8 +12,8 @@ if [ "$branch_name" != "$s2" ]; then
 fi
 
 NUM=$1
-NUM=${NUM:0:-1}
-#echo LEETCODE: new branch: $NUM
+NUM=${NUM:0:(${#NUM}-1)}
+echo LEETCODE: new branch: $NUM
 git checkout -b p$NUM
 
 TITLE=$2
