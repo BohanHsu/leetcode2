@@ -2,28 +2,26 @@
 # @return {Integer[][]}
 def get_skyline(buildings)
   skylines = []
-  heap = MaxHeap.new
-  left_boundry = buildings.map do |building|
-    building[0]
-  end.min
+  return skylines if buildings.empty?
 
-  right_boundry = buildings.map do |building|
-    building[1]
-  end.max
-  
+  heap = MaxHeap.new
+  point_hsh = {}
+  buildings.each do |building|
+    point_hsh[building[0]] = true
+    point_hsh[building[1]] = true
+  end
+  points = point_hsh.keys.sort
   prev_height = 0
   j = 0
 
-  puts "left_boundry=#{left_boundry}, right_boundry=#{right_boundry}"
-
-  (left_boundry..(right_boundry + 1)).each do |i|
-    while j < buildings.length && buildings[j][1] <= i do
-      heap.push(buildings[j][2], buildings[j])
-      j += 1
+  points.each do |i|
+    while !heap.empty? && heap.peek[1] <= i do
+      heap.pop
     end
 
-    while !heap.empty? && heap.peek[1] < i do
-      heap.pop
+    while j < buildings.length && buildings[j][0] <= i do
+      heap.push(buildings[j][2], buildings[j])
+      j += 1
     end
 
     if heap.empty?
@@ -38,24 +36,49 @@ def get_skyline(buildings)
     prev_height = cur_height
   end
 
-  #skylines << [right_boundry, 0]
   skylines
 end
 
-class MaxHeap
+class Heap
   def initialize
     @array = []
   end
 
+  def empty?
+    @array.empty?
+  end
+
+  def ip(i)
+    (i + 1) / 2 - 1
+  end
+
+  def il(i)
+    (i + 1) * 2 - 1
+  end
+
+  def ir(i)
+    (i + 1) * 2
+  end
+
+  def swap(i, j)
+    tmp = @array[i]
+    @array[i] = @array[j]
+    @array[j] = tmp
+    nil
+  end
+
+  def to_s
+    @array.to_s
+  end
+end
+
+class MaxHeap < Heap
   def push(key, val)
     @array << [key, val]
     i = @array.length - 1
 
-    #puts "@array=#{@array}"
-    #puts "i=#{i}"
     while i >= 0 && ip(i) >= 0 do
       if @array[i][0] >= @array[ip(i)][0]
-        #puts "i=#{i}, ip(i)=#{ip(i)}"
         swap(i, ip(i))
         i = ip(i)
       else
@@ -88,32 +111,5 @@ class MaxHeap
 
   def peek
     @array[0][1]
-  end
-
-  def empty?
-    @array.empty?
-  end
-
-  def ip(i)
-    (i + 1) / 2 - 1
-  end
-
-  def il(i)
-    (i + 1) * 2 - 1
-  end
-
-  def ir(i)
-    (i + 1) * 2
-  end
-
-  def swap(i, j)
-    tmp = @array[i]
-    @array[i] = @array[j]
-    @array[j] = tmp
-    nil
-  end
-
-  def to_s
-    @array.to_s
   end
 end
