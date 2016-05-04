@@ -5,7 +5,7 @@ def get_skyline(buildings)
   heap = MaxHeap.new
   left_boundry = buildings.map do |building|
     building[0]
-  end
+  end.min
 
   right_boundry = buildings.map do |building|
     building[1]
@@ -13,6 +13,8 @@ def get_skyline(buildings)
   
   prev_height = 0
   j = 0
+
+  puts "left_boundry=#{left_boundry}, right_boundry=#{right_boundry}"
 
   (left_boundry..(right_boundry + 1)).each do |i|
     while j < buildings.length && buildings[j][1] <= i do
@@ -49,8 +51,11 @@ class MaxHeap
     @array << [key, val]
     i = @array.length - 1
 
-    while i >= 0 do
+    #puts "@array=#{@array}"
+    #puts "i=#{i}"
+    while i >= 0 && ip(i) >= 0 do
       if @array[i][0] >= @array[ip(i)][0]
+        #puts "i=#{i}, ip(i)=#{ip(i)}"
         swap(i, ip(i))
         i = ip(i)
       else
@@ -61,11 +66,15 @@ class MaxHeap
 
   def pop
     result = @array[0]
-    @array[0] = @array.pop
-    i = 0
+    if @array.length > 1
+      @array[0] = @array.pop
+    else
+      @array = []
+    end
 
-    while il(i) < @array.length && @array[i] < @array[il(i)] || ir(i) < @array.length && @array[i] < @array[ir(i)] do
-      if ir(i) < @array.length && @array[ir(i)] > @array[il(i)]
+    i = 0
+    while il(i) < @array.length && @array[i][0] < @array[il(i)][0] || ir(i) < @array.length && @array[i][0] < @array[ir(i)][0] do
+      if ir(i) < @array.length && @array[ir(i)][0] > @array[il(i)][0]
         swap(i, ir(i))
         i = ir(i)
       else
@@ -74,11 +83,11 @@ class MaxHeap
       end
     end
 
-    result
+    result[1]
   end
 
   def peek
-    @array[0]
+    @array[0][1]
   end
 
   def empty?
@@ -102,5 +111,9 @@ class MaxHeap
     @array[i] = @array[j]
     @array[j] = tmp
     nil
+  end
+
+  def to_s
+    @array.to_s
   end
 end
