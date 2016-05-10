@@ -10,7 +10,6 @@ def exist(board, word)
 
   height.times do |i|
     width.times do |j|
-      #puts "i=#{i}, j=#{j}, word[0] == board[i][j]=#{word[0] == board[i][j]}, word[0]=#{word[0]}, board[i][j]=#{board[i][j]}"
       return true if word[0] == board[i][j] && search_from(board, word, i, j)
     end
   end
@@ -19,29 +18,33 @@ def exist(board, word)
 end
 
 def search_from(board, word, arg_i, arg_j)
-  #puts "arg_i=#{arg_i}, arg_j=#{arg_j}"
   searched = board.map do |row|
     row.map do
       false
     end
   end
 
-  searched[arg_i][arg_j] = true
-  queue = [[arg_i, arg_j, 0]]
+  stack = [[arg_i, arg_j, 0]]
 
-  while !queue.empty? do
-    i, j, idx = queue.shift
-    #puts "i=#{i}, j=#{j}, idx=#{idx}"
+  while !stack.empty? do
+    i, j, idx = stack.last
 
     if idx == word.length - 1
       return true
     end
 
+    if searched[i][j]
+      searched[i][j] = false
+      stack.pop
+      next
+    else
+      searched[i][j] = true
+    end
+
     neighboors = get_neighboors(i, j, board)
-    queue += neighboors.select do |ni, nj|
+    stack += neighboors.select do |ni, nj|
       !searched[ni][nj] && word[idx+1] == board[ni][nj]
     end.map do |ni, nj|
-      searched[ni][nj] = true
       [ni, nj, idx + 1]
     end
   end
