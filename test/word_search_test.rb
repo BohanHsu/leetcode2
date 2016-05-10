@@ -46,4 +46,17 @@ describe 'exist(board, word)' do
     expected_result = true
     exist(board, word).must_equal(expected_result)
   end
+
+  it 'should work4' do
+    board = [
+      "CAA",
+      "AAA",
+      "BCD"].map do |str|
+      str.chars
+    end
+
+    word = "AAB"
+    expected_result = true
+    exist(board, word).must_equal(expected_result)
+  end
 end

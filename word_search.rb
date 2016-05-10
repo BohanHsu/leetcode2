@@ -10,6 +10,7 @@ def exist(board, word)
 
   height.times do |i|
     width.times do |j|
+      #puts "i=#{i}, j=#{j}, word[0] == board[i][j]=#{word[0] == board[i][j]}, word[0]=#{word[0]}, board[i][j]=#{board[i][j]}"
       return true if word[0] == board[i][j] && search_from(board, word, i, j)
     end
   end
@@ -40,7 +41,7 @@ def search_from(board, word, arg_i, arg_j)
     queue += neighboors.select do |ni, nj|
       !searched[ni][nj] && word[idx+1] == board[ni][nj]
     end.map do |ni, nj|
-      board[ni][nj] = true
+      searched[ni][nj] = true
       [ni, nj, idx + 1]
     end
   end
