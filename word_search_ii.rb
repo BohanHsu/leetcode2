@@ -2,45 +2,41 @@
 # @param {String[]} words
 # @return {String[]}
 def find_words(board, words)
-
-end
-
-class Node
-  def initialize
-    @children = {}
-  end
-end
-
-class Tire
-  def initialize
-    @root = {}
-  end
-
-  def validate(str)
-  end
-
-  def add_child_to_node(node, child)
-    # return new node
-  end
-end
-
-def exist(board, word)
-  return true if word == ""
+  results = []
+  #return true if word == ""
 
   height = board.length
   return false if height == 0
   width = board[0].length
 
-  height.times do |i|
-    width.times do |j|
-      return true if word[0] == board[i][j] && search_from(board, word, i, j)
+  in_tire = {}
+  tire = Node.new([])
+
+  words.each do |word|
+    if in_tire.has_key?(word[0]) && !in_tire[word[0]]
+      #
+    end
+    find_flag = false
+    height.times do |i|
+      width.times do |j|
+        if word[0] == board[i][j] && search_from(board, word, i, j, tire)
+          results << word
+          find_words = true
+          break
+        end
+      end
+      break if find_words
+    end
+
+    if !find_words
+      in_tire
     end
   end
-
-  return false
+    
+  results
 end
 
-def search_from(board, word, arg_i, arg_j)
+def search_from(board, word, arg_i, arg_j, tire)
   searched = board.map do |row|
     row.map do
       false
@@ -86,4 +82,18 @@ def get_neighboors(i, j, board)
   neighboors << [i, j + 1] if j + 1 < width
 
   neighboors
+end
+
+class Node
+  attr_accessor :prefix, :children
+  def initialize(prefix)
+    @prefix = prefix
+    @children = nil
+  end
+
+  def add_child(child)
+    @children = {} if @children.nil?
+    @children[child] = Node.new(@prefix + [child]) if !@children.has_key?(child)
+    return @children[child] 
+  end
 end
