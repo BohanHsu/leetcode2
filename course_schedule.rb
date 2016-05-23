@@ -20,9 +20,8 @@ def can_finish(num_courses, prerequisites)
 
   #puts "hsh=#{hsh}"
 
-  queue = []
-  num_courses.times do |n|
-    queue << n if start_courses[n]
+  queue = num_courses.times.map do |n|
+    n
   end
 
   return false if queue.empty?
@@ -32,12 +31,7 @@ def can_finish(num_courses, prerequisites)
   safe_courses = {}
 
   while !queue.empty? do
-    if safe_courses.has_key?(queue[0])
-      local_queue = [queue.shift]
-    else
-      queue.shift
-      local_queue = []
-    end
+    local_queue = [queue.shift]
 
     #puts "local_queue=#{local_queue}, queue=#{queue}"
 
@@ -49,7 +43,7 @@ def can_finish(num_courses, prerequisites)
       if hsh.has_key?(c_from)
         hsh[c_from].each do |c_to|
           return false if visited.has_key?(c_to)
-          local_queue << c_to if safe_courses.has_key?(c_to)
+          local_queue << c_to if !safe_courses.has_key?(c_to)
         end
       end
       safe_courses[c_from] = true
