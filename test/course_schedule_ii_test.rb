@@ -3,14 +3,17 @@ require '../course_schedule_ii'
 
 describe 'find_order(num_courses, prerequisites)' do
   it 'should work1' do
-    #num_courses, prerequisites, expected_result = [2, [[1,0]], [0,1]]
-    #find_order(num_courses, prerequisites).must_equal(expected_result)
+    num_courses, prerequisites, expected_result = [2, [[1,0]], [0,1]]
+    find_order(num_courses, prerequisites).must_equal(expected_result)
 
-    #num_courses, prerequisites, expected_result = [2, [[1,0], [0,1]], []]
-    #find_order(num_courses, prerequisites).must_equal(expected_result)
+    num_courses, prerequisites, expected_result = [3, [[1,0], [0,1], [2,1]], []]
+    find_order(num_courses, prerequisites).must_equal(expected_result)
 
-    #num_courses, prerequisites, expected_result = [4, [[1,0],[2,0],[3,1],[3,2]], [0,1,2,3]]
-    #find_order(num_courses, prerequisites).must_equal(expected_result)
+    num_courses, prerequisites, expected_result = [2, [[1,0], [0,1]], []]
+    find_order(num_courses, prerequisites).must_equal(expected_result)
+
+    num_courses, prerequisites, expected_result = [4, [[1,0],[2,0],[3,1],[3,2]], [0,2,1,3]]
+    find_order(num_courses, prerequisites).must_equal(expected_result)
     
     num_courses, prerequisites, expected_result = [2, [[0,1]], [1,0]]
     find_order(num_courses, prerequisites).must_equal(expected_result)

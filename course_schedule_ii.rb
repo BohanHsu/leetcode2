@@ -18,37 +18,6 @@ def find_order(num_courses, prerequisites)
     start_courses[p_to] = false
   end
 
-  #puts "hsh=#{hsh}"
-
-  queue = num_courses.times.map do |n|
-    n
-  end
-
-  return false if queue.empty?
-
-  #puts "queue=#{queue}"
-
-  safe_courses = {}
-
-  while !queue.empty? do
-    local_queue = [queue.shift]
-
-    #puts "local_queue=#{local_queue}, queue=#{queue}"
-
-    visited = {}
-    while !local_queue.empty? do
-      c_from = local_queue.shift
-      visited[c_from] = true
-
-      if hsh.has_key?(c_from)
-        hsh[c_from].each do |c_to|
-          return [] if visited.has_key?(c_to)
-          local_queue << c_to if !safe_courses.has_key?(c_to)
-        end
-      end
-      safe_courses[c_from] = true
-    end
-  end
 
   s = []
   num_courses.times do |n|
@@ -59,17 +28,19 @@ def find_order(num_courses, prerequisites)
   graph = {}
   incoming_graph = {}
 
-  hsh.each do |k, v|
-    if !graph.has_key?(k)
-      graph[k] = {}
-    end
+  hsh.each do |k, vs|
+    vs.each do |v|
+      if !graph.has_key?(k)
+        graph[k] = {}
+      end
 
-    if !incoming_graph.has_key?(k)
-      incoming_graph[v] = {}
-    end
+      if !incoming_graph.has_key?(v)
+        incoming_graph[v] = {}
+      end
 
-    graph[k][v] = true
-    incoming_graph[v][k] = true
+      graph[k][v] = true
+      incoming_graph[v][k] = true
+    end
   end
 
 
@@ -89,6 +60,9 @@ def find_order(num_courses, prerequisites)
     end
   end
 
+  graph.each do |k, vh|
+    return [] if vh.size != 0
+  end
 
-  return l
+  return l.reverse
 end
