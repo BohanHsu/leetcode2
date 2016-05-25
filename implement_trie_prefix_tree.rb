@@ -1,8 +1,9 @@
 class TrieNode
+  attr_accessor :children, :is_word
   # Initialize your data structure here.
   def initialize
     @children = {}
-    @is_word
+    @is_word = false
   end
 end
 
@@ -17,10 +18,10 @@ class Trie
   def insert(word)
     node = @root
     word.chars.each do |chr|
-      if !node.has_key?(chr)
-        node[chr] = TrieNode.new
+      if !node.children.has_key?(chr)
+        node.children[chr] = TrieNode.new
       end
-      node = node[chr]
+      node = node.children[chr]
     end
     node.is_word = true
   end
@@ -30,14 +31,15 @@ class Trie
   # Returns if the word is in the trie.
   def search(word)
     node = search_helper(word)
+    #puts "node=#{node}"
     !node.nil? && node.is_word
   end
 
   def search_helper(word)
     node = @root
     word.chars.each do |chr|
-      return nil if !node.has_key?(chr)
-      node = node[chr]
+      return nil if !node.children.has_key?(chr)
+      node = node.children[chr]
     end
 
     node
@@ -48,7 +50,7 @@ class Trie
   # Returns if there is any word in the trie
   # that starts with the given prefix.
   def starts_with(prefix)
-    search_helper(prefix)
+    node = search_helper(prefix)
     return false if node.nil?
 
     queue = [node]
