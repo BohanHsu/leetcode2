@@ -14,13 +14,9 @@ def find_min(nums)
     i = (from + to) / 2
     puts "from=#{from}, to=#{to}, i=#{i}"
 
-    if is_minimum(nums, from)
-      cur_min = [nums[from], cur_min].min
-    end
-
-    if is_minimum(nums, i)
-      cur_min = [nums[i], cur_min].min
-    end
+    cur_min = [nums[from], cur_min].min if is_minimum(nums, from)
+    cur_min = [nums[i], cur_min].min if is_minimum(nums, i)
+    cur_min = [nums[to], cur_min].min if is_minimum(nums, to)
 
     if nums[from] < nums[i]
       queue << [i, to]
