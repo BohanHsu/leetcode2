@@ -12,7 +12,6 @@ def find_min(nums)
   while !queue.empty? do
     from, to = queue.shift
     i = (from + to) / 2
-    puts "from=#{from}, to=#{to}, i=#{i}"
 
     cur_min = [nums[from], cur_min].min if is_minimum(nums, from)
     cur_min = [nums[i], cur_min].min if is_minimum(nums, i)
@@ -26,8 +25,14 @@ def find_min(nums)
       if to == from + 1
         cur_min = [cur_min, nums[from]].min
       else
-        queue << [from, i]
-        queue << [i, to]
+        if nums[i] < nums[to]
+          return cur_min
+        elsif nums[i] > nums[to]
+          queue << [i, to]
+        else
+          queue << [from, i]
+          queue << [i, to]
+        end
       end
     end
   end
