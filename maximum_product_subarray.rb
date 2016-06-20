@@ -14,8 +14,10 @@ def max_product(nums)
       i += 1
     end
   end
-  tmp = max_product_helper(nums, j, i-1)
-  cur_max = [cur_max, tmp].max
+  if i >= j
+    tmp = max_product_helper(nums, j, i-1)
+    cur_max = [cur_max, tmp].max
+  end
   cur_max
 end
 
@@ -24,28 +26,27 @@ def max_product_helper(nums, f, t)
     return nums[f]
   end
 
-  cur_max = Float::INFINITY
+  cur_max = -Float::INFINITY
 
-  first_negative_idx = nil
+  first_negative = nil
 
-  res = nums[f]
+  res = 1
 
-  i = f + 1
-  while i <= to do
-    if res < 0 && first_negative_idx.nil?
-      first_negative_idx = i
-    end
+  i = f
+  while i <= t do
+    res *= nums[i]
+    i += 1
+
     if res > 0
       cur_max = [cur_max, res].max
     else
-      if !first_negative_idx.nil? && first_negative_idx != i
-        cur_max = [cur_max, res / nums[first_negative_idx]].max
+      if first_negative.nil?
+        first_negative = res
+      else
+        cur_max = [cur_max, res / first_negative].max
       end
     end
 
-    res *= nums[i]
-    i += 1
   end
-
-
+  cur_max
 end
