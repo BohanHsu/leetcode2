@@ -49,6 +49,11 @@ describe 'max_points(points)' do
     points = convert_array_to_points(array)
     expected_result = 4
     max_points(points).must_equal(expected_result)
+
+    array = [[0, 0], [0, 0], [0, 0]]
+    points = convert_array_to_points(array)
+    expected_result = 3
+    max_points(points).must_equal(expected_result)
   end
 end
 
