@@ -33,6 +33,7 @@ def merge(h1, h2)
 end
 
 def sort(h1)
+  return nil if h1.nil?
   len = length(h1)
   if len <= 1
     return h1
