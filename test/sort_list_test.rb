@@ -16,11 +16,15 @@ describe 'sort_list(head)' do
     expected_result = array.sort
     convert_list_to_array(sort_list(convert_array_to_list(array))).must_equal(expected_result)
 
+    array = [0, 1]
+    expected_result = array.sort
+    convert_list_to_array(sort_list(convert_array_to_list(array))).must_equal(expected_result)
+
     array = [1, 0]
     expected_result = array.sort
     convert_list_to_array(sort_list(convert_array_to_list(array))).must_equal(expected_result)
 
-    array = [0, 1]
+    array = [1,3,5,6,2,34,54,23,1,2,32,9143]
     expected_result = array.sort
     convert_list_to_array(sort_list(convert_array_to_list(array))).must_equal(expected_result)
   end

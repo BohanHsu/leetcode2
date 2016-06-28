@@ -14,10 +14,10 @@ def sort_list(head)
 end
 
 def merge(h1, h2)
-  nh = ListNode(nil)
+  nh = ListNode.new(nil)
   tail = nh
   while !h1.nil? || !h2.nil? do
-    if h1.nil? || (!h2.nil? && h2.val > h1.val)
+    if h1.nil? || (!h2.nil? && h2.val < h1.val)
       tmp = h2
       h2 = h2.next
       tail.next = tmp
@@ -51,6 +51,7 @@ def split_middle(head, length)
   while i < length / 2 do
     prev = n 
     n = n.next
+    i += 1
   end
   prev.next = nil
   return n
@@ -59,11 +60,10 @@ end
 def length(head)
   length = 0
   n = head
-  while n.nil? do
+  while !n.nil? do
     length += 1
     n = n.next
   end
 
   return length
 end
-
