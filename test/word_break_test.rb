@@ -38,16 +38,16 @@ describe 'word_break(s, word_dict)' do
     expected_result = false
     word_break(s, word_dict).must_equal(expected_result)
 
-    s = ''
-    word_dict = ['aaaaaaa', 'aaaa', 'a']
-    expected_result = false
+    s = 'cars'
+    word_dict = ['ca', 'rs', 'car']
+    expected_result = true
     word_break(s, word_dict).must_equal(expected_result)
   end
 
   it 'should work2' do
-    s = 'cars'
-    word_dict = ['ca', 'rs', 'car']
-    expected_result = true
+    s = ''
+    word_dict = ['aaaaaaa', 'aaaa', 'a']
+    expected_result = false
     word_break(s, word_dict).must_equal(expected_result)
   end
 end
