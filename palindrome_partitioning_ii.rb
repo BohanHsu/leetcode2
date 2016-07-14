@@ -14,9 +14,11 @@ def min_cut(s)
     end
   end
 
-  s.length.times do |i|
-    ((i + 2)...(s.length)).each do |j|
+  (3..s.length).each do |len|
+    (0..(s.length - len)).each do |i|
+      j = i + len - 1
       @mask[i][j] = s[i] == s[j] && @mask[i+1][j-1]
+      #puts "i=#{i}, j=#{j}, @mask[i][j]=#{@mask[i][j]}"
     end
   end
 
@@ -24,26 +26,18 @@ def min_cut(s)
     return @mask[i][j]
   end
 
-  def min_cut_helper(s, i, cur_len, cur_min)
-    if cur_len - 1 > cur_min
-      return cur_min
-    end
-  
-    if i == s.length
-      return cur_len - 1
-    end
-  
-    (s.length-1).downto(i).each do |j|
-      #if is_palindrome(s[i..j])
-      if is_palindrome(i, j)
-        cur_len += 1
-        cur_min = [min_cut_helper(s, j+1, cur_len, cur_min), cur_min].min
-        cur_len -= 1
+  cuts = (s.length+1).times.map do
+    Float::INFINITY
+  end
+  cuts[0] = -1
+
+  (0...s.length).each do |i|
+    (0..i).each do |j|
+      if is_palindrome(j, i)
+        cuts[i+1] = [cuts[j] + 1, cuts[i+1]].min
       end
     end
-  
-    cur_min
   end
 
-  return min_cut_helper(s, 0, 0, Float::INFINITY)
+  return cuts.last
 end

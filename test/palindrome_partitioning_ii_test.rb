@@ -11,4 +11,10 @@ describe 'min_cut(s)' do
     expected_result = 1
     min_cut(s).must_equal(expected_result)
   end
+
+  it 'should work2' do
+    s = "ele"
+    expected_result = 0
+    min_cut(s).must_equal(expected_result)
+  end
 end
