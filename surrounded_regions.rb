@@ -2,6 +2,7 @@
 # @return {Void} Do not return anything, modify board in-place instead.
 def solve(board)
   #'X', 'O'
+  #'V' == visited
   #'S' == surround
   #'B' == free
   
@@ -12,6 +13,7 @@ def solve(board)
 
   height.times do |i|
     width.times do |j|
+      #puts "i=#{i}, j=#{j}"
       if board[i][j] == 'O'
         surround = true
         path = []
@@ -19,6 +21,8 @@ def solve(board)
 
         while !queue.empty? do
           a, b = queue.shift
+          #puts "  a=#{a}, b=#{b}"
+          board[a][b] = 'V'
           path << [a, b]
           if at_border?(height, width, a, b)
             surround = false
