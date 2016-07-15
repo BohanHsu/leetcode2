@@ -4,16 +4,16 @@ require '../surrounded_regions'
 describe 'solve(board)' do
   it 'should work1' do
     board = [
-      "XXXX",
-      "XOOX",
-      "XXOX",
-      "XOXX"
+      "XXXX".chars,
+      "XOOX".chars,
+      "XXOX".chars,
+      "XOXX".chars
     ]
     expected_result = [
-      "XXXX",
-      "XXXX",
-      "XXXX",
-      "XOXX"
+      "XXXX".chars,
+      "XXXX".chars,
+      "XXXX".chars,
+      "XOXX".chars
     ]
     solve(board)
     board.must_equal(expected_result)
