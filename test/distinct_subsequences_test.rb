@@ -3,10 +3,6 @@ require '../distinct_subsequences'
 
 describe 'num_distinct(s, t)' do
   it 'should work1' do
-    s = 'rabbbit'
-    t = 'rabit'
-    expected_result = 3
-    num_distinct(s,t).must_equal(expected_result)
 
     s = 'rabbbit'
     t = 'racit'
@@ -30,5 +26,9 @@ describe 'num_distinct(s, t)' do
   end
 
   it 'should work2' do
+    s = 'rabbbit'
+    t = 'rabit'
+    expected_result = 3
+    num_distinct(s,t).must_equal(expected_result)
   end
 end
