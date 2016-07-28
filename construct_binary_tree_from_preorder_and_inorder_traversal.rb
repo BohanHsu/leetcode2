@@ -28,13 +28,13 @@ def build_tree_helper(inorder, i_f, i_t, preorder, p_f, p_t, inorder_index)
     return TreeNode.new(inorder[i_f])
   end
 
-  pivot = inorder_index[preorder[0]]
+  pivot = inorder_index[preorder[p_f]]
   left_length = pivot - i_f
   right_length = i_t - pivot
 
-  root = TreeNode.new(preorder[0])
-  root.left = build_tree_helper(inorder, i_f, pivot-1, preorder, 1, left_length, inorder_index)
-  root.rignt = build_tree_helper(inorder, pivot+1, i_t, preorder, left_length+1, p_t, inorder_index)
+  root = TreeNode.new(preorder[p_f])
+  root.left = build_tree_helper(inorder, i_f, pivot-1, preorder, p_f+1, p_f+left_length, inorder_index)
+  root.right = build_tree_helper(inorder, pivot+1, i_t, preorder, p_f+left_length+1, p_t, inorder_index)
 
   return root
 end

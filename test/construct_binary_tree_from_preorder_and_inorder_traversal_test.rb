@@ -6,7 +6,48 @@ describe 'build_tree(preorder, inorder)' do
     inorder = [4,2,6,5,7,1,3]
     preorder = [1,2,4,5,6,7,3]
     expected_result = [1,2,3,4,5,nil,nil,nil,nil,6,7]
-    #build_tree(preorder, inorder)
+    root = build_tree(preorder, inorder)
+    actual_result = convert_tree_to_array(root)
+    actual_result.must_equal(expected_result)
+
+    inorder = [2,1]
+    preorder = [1,2]
+    expected_result = [1,2]
+    root = build_tree(preorder, inorder)
+    actual_result = convert_tree_to_array(root)
+    actual_result.must_equal(expected_result)
+
+    inorder = [1,2]
+    preorder = [1,2]
+    expected_result = [1,nil,2]
+    root = build_tree(preorder, inorder)
+    actual_result = convert_tree_to_array(root)
+    actual_result.must_equal(expected_result)
+
+    inorder = [1,2]
+    preorder = [2,1]
+    expected_result = [2,1]
+    root = build_tree(preorder, inorder)
+    actual_result = convert_tree_to_array(root)
+    actual_result.must_equal(expected_result)
+
+    inorder = [2,1]
+    preorder = [2,1]
+    expected_result = [2,nil,1]
+    root = build_tree(preorder, inorder)
+    actual_result = convert_tree_to_array(root)
+    actual_result.must_equal(expected_result)
+
+    inorder = [1]
+    preorder = [1]
+    expected_result = [1]
+    root = build_tree(preorder, inorder)
+    actual_result = convert_tree_to_array(root)
+    actual_result.must_equal(expected_result)
+
+    inorder = []
+    preorder = []
+    expected_result = []
     root = build_tree(preorder, inorder)
     actual_result = convert_tree_to_array(root)
     actual_result.must_equal(expected_result)
