@@ -5,7 +5,6 @@ describe 'recover_tree(root)' do
   it 'should work1' do
     correct_tree = [100,50,150,30,80,120,170]
     wrong_tree = [100,50,150,30,120,80,170]
-    #puts "wrong_tree=#{wrong_tree}"
     root = convert_array_to_tree(wrong_tree)
     recover_tree(root)
     convert_tree_to_array(root).must_equal(correct_tree)
@@ -73,26 +72,15 @@ describe 'recover_tree(root)' do
 
   it 'should work2' do
     correct_tree = [146,71,321,55,nil,231,399,-31] + [nil] * 7 + [-33]
-    wrong_tree = [146,71,-13,55,nil,231,399,321] + [nil] * 7 + [-33]
+    wrong_tree =   [146,71,-31,55,nil,231,399,321] + [nil] * 7 + [-33]
     root = convert_array_to_tree(wrong_tree)
     recover_tree(root)
     convert_tree_to_array(root).must_equal(correct_tree)
   end
-end
 
-#[146,71,-13,55,null,231,399,321,null,null,null,null,null,-33]
-#
-#
-#
-#                          146
-#             /                         \
-#             71                        -13
-#     /              \          /                \
-#     55             n         231               399
-#   /      \     /      \    /      \          /      \
-#   321    n     n      n    n      n          n      n
-# /
-# -33
+  it 'should work3' do
+  end
+end
 
 def convert_array_to_tree(array)
   return nil if array.empty?
