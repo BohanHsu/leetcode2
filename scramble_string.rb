@@ -7,6 +7,7 @@ def is_scramble(s1, s2)
 end
 
 def is_scramble_helper(s1, s2)
+  puts "s1=#{s1}, s2=#{s2}"
   return false if s1.length != s2.length
   if s1 == s2
     return true
@@ -32,7 +33,7 @@ def is_scramble_helper(s1, s2)
     end
 
     if i != s1.length-1 && check_balance(balance)
-      return is_scramble_helper(s1[0..i], s2[0..i]) && is_scramble_helper(s1[(i+1)...s1.length], s2[(i+1)...s2.length])
+      return true if is_scramble_helper(s1[0..i], s2[0..i]) && is_scramble_helper(s1[(i+1)...s1.length], s2[(i+1)...s2.length])
     end
     i += 1
   end
@@ -54,7 +55,7 @@ def is_scramble_helper(s1, s2)
     end
 
     if i != s1.length - 1 && check_balance(balance)
-      return is_scramble_helper(s1[0..i], s2[(s2.length-1-i)...(s2.length)]) && is_scramble_helper(s1[(i+1)...s1.length], s2[0...s2.length-1-i])
+      return true if is_scramble_helper(s1[0..i], s2[(s2.length-1-i)...(s2.length)]) && is_scramble_helper(s1[(i+1)...s1.length], s2[0...s2.length-1-i])
     end
     i += 1
   end

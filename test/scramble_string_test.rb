@@ -7,12 +7,22 @@ describe 'is_scramble(s1, s2)' do
     s2 = "rgtae"
     expected_result = true
     is_scramble(s1, s2).must_equal(expected_result)
+
+    s1 = "great"
+    s2 = "gtrae"
+    expected_result = true
+    is_scramble(s1, s2).must_equal(expected_result)
+
+    s1 = "great"
+    s2 = "trcae"
+    expected_result = false
+    is_scramble(s1, s2).must_equal(expected_result)
   end
 
   it 'should work2' do
-    s1 = "great"
-    s2 = "gtrae"
-    expected_result = false
+    s1 = "hobobyrqd"
+    s2 = "hbyorqdbo"
+    expected_result = true
     is_scramble(s1, s2).must_equal(expected_result)
   end
 end
