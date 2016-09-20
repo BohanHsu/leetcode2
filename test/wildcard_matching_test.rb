@@ -27,5 +27,6 @@ describe 'is_match(s, p)' do
   end
 
   it 'should work2' do
+    is_match("abefcdgiescdfimde", "ab*cd?i*de").must_equal(true)
   end
 end

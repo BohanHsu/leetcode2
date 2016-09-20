@@ -2,49 +2,66 @@
 # @param {String} p
 # @return {Boolean}
 def is_match(s, p)
-  #puts "s=#{s}, p=#{p}"
-  matrix = (p.length+1).times.map do
-    (s.length+1).times.map do
-      nil
-    end
-  end
+  last_star = -1
+  last_match_to = -1
 
-  matrix[0][0] = 0
-  s.length.times do |j|
-    matrix[0][j+1] = j + 1
-  end
+  i = 0
+  j = 0
 
-  p.length.times do |i|
-    if p[i] == "*"
-      matrix[i+1][0] = matrix[i][0]
-      #s.length.times do |j|
-      #  matrix[i+1][j+1] = matrix[i][0]
-      #end
-    else
-      matrix[i+1][0] = matrix[i][0] + 1
-    end
-  end
+  while i < s.length do
+    puts "i=#{i}, j=#{j}, s[#{i}]=#{s[i]}, p[#{j}]=#{p[j]}"
+    if p[j] == "*"
 
-  p.length.times do |i|
-    s.length.times do |j|
-      #puts "i=#{i+1}, j=#{j+1}"
-      if p[i] == "*"
-        set_matrix(matrix, i, j, [matrix[i][j], matrix[i][j+1], matrix[i+1][j]].min)
-      elsif p[i] == "?" || p[i] == s[j]
-        set_matrix(matrix, i, j, matrix[i][j])
+      while j < p.length && p[j] == "*" do
+        j += 1
+      end
+      j -= 1
+      if j + 1 == p.length
+        return true
       else
-        set_matrix(matrix, i, j, matrix[i][j] + 1)
+        while !compare(s, i , p, j+1) do
+          i += 1
+          return false if i >= s.length
+        end
+        last_star = j
+        last_match_to = i
+        i += 1
+        j += 2
+      end
+    else
+      if compare(s, i, p, j)
+        i += 1
+        j += 1
+      else
+        if last_star < 0
+          return false
+        else
+          i = last_match_to + 1
+          j = last_star + 1
+          
+          while !compare(s, i, p, j) do
+            i += 1
+            return false if i >= s.length
+          end
+
+          last_match_to = i
+          i += 1
+          j += 2
+        end
       end
     end
   end
-  #matrix.each do |row|
-  #  puts "#{row}"
-  #end
-  return matrix[p.length][s.length] == 0
+
+  #puts "out loop :i=#{i}, j=#{j}"
+
+  return true if j == p.length
+  (j...p.length).each do |k|
+    return false if p[k] != "*"
+  end
+  return true
 end
 
-def set_matrix(matrix, i, j, value)
-  #puts "set matrix[#{i+1}][#{j+1}]=#{value}"
-  #return if matrix[i+1][j+1] == 0
-  matrix[i+1][j+1] = value
+def compare(s, i, p, j)
+  return true if p[j] == '?'
+  return s[i] == p[j]
 end
