@@ -9,7 +9,6 @@ def is_match(s, p)
   j = 0
 
   while i < s.length do
-    puts "i=#{i}, j=#{j}, s[#{i}]=#{s[i]}, p[#{j}]=#{p[j]}"
     if p[j] == "*"
 
       while j < p.length && p[j] == "*" do
@@ -37,9 +36,9 @@ def is_match(s, p)
           return false
         else
           i = last_match_to + 1
-          j = last_star + 1
+          j = last_star
           
-          while !compare(s, i, p, j) do
+          while !compare(s, i, p, j+1) do
             i += 1
             return false if i >= s.length
           end
@@ -51,8 +50,6 @@ def is_match(s, p)
       end
     end
   end
-
-  #puts "out loop :i=#{i}, j=#{j}"
 
   return true if j == p.length
   (j...p.length).each do |k|

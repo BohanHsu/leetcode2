@@ -24,9 +24,12 @@ describe 'is_match(s, p)' do
 
     is_match("aaaa", "*?**b*").must_equal(false)
     is_match("aaaa", "*?*b*?*").must_equal(false)
+
+    is_match("abefcdgiescdfimde", "ab*cd?i*de").must_equal(true)
+    is_match("dedede", "*de").must_equal(true)
+    is_match("dedede", "d*de").must_equal(true)
   end
 
   it 'should work2' do
-    is_match("abefcdgiescdfimde", "ab*cd?i*de").must_equal(true)
   end
 end
