@@ -2,77 +2,46 @@
 # @param {String} p
 # @return {Boolean}
 def is_match(s, p)
-  pattern = [:start]
-  self_link = [false]
-  p.chars.each do |chr|
+  pattern = []
+  star = []
+
+  p.chars.each_with_index do |chr, idx|
     if chr == "*"
-      self_link[-1] = true
+      star[star.length - 1] = true
     else
       pattern << chr
-      self_link << false
-    end
-  end
-  pattern << :end
-  self_link << false
-
-  #puts "pattern=#{pattern}"
-  #puts "self_link=#{self_link}"
-
-  matrix = pattern.map do
-    pattern.map do
-      false
+      star << false
     end
   end
 
-  pattern.length.times do |i|
-    if i < pattern.length - 1
-      matrix[i][i+1] = true
-    end
+  p = pattern
 
-    if self_link[i]
-      matrix[i][i] = true
-      #matrix[i-1][i+1] = true
-      (0..i).each do |j|
-        if matrix[j][i]
-          matrix[j][i+1] = true
-        end
+  matrix = (p.length + 1).times.map do |i|
+    (s.length + 1).times.map do |j|
+      0
+    end
+  end
+
+  s.length.times do |i|
+    matrix[0][i+1] = i + 1
+  end
+
+  p.length.times do |j|
+    matrix[j+1][0] = ((matrix[j][0] == 0 && star[j]) ? 0 : matrix[j][0] + 1)
+  end
+
+  p.length.times do |i|
+    s.length.times do |j|
+      arr = []
+      match = p[i] == "." || p[i] == s[j]
+      if star[i]
+        arr << matrix[i][j+1]
+        arr << (matrix[i+1][j] + (match ? 0 : 1))
       end
+      arr << (matrix[i][j] + (match ? 0 : 1))
+      matrix[i+1][j+1] = arr.min
     end
   end
 
-  #puts "===matrix==="
-  #matrix.each do |row|
-  #  puts "#{row}"
-  #end
-
-  str = [:start] + s.chars + [:end]
-  #puts "str=#{str}"
-  queue = get_next_nodes(str, 0, pattern, 0, matrix)
-  while !queue.empty? do
-    i, j = queue.shift
-    if i == str.length - 1 && j == pattern.length - 1
-      return true
-    end
-    if i < str.length
-      queue += get_next_nodes(str, i, pattern, j, matrix)
-    end
-  end
-  return false
-end
-
-def get_next_nodes(str, i, pattern, k, matrix)
-  result = matrix[k].each_with_index.map do |connect, j|
-    #puts "pattern[j]=#{pattern[j]}, str[i+1]=#{str[i+1]}, equals=#{pattern[j] == str[i+1]}, connect=#{connect}"
-    if connect && (pattern[j] == str[i+1] || pattern[j] == ".")
-      [i+1, j]
-    else
-      [i+1, nil]
-    end
-  end.select do |pair|
-    !pair[1].nil?
-  end
-
-  #puts "i=#{i}, str[i]=#{str[i]}, k=#{k}, pattern[k]=#{pattern[k]}, result=#{result.map {|pair| "[i=#{pair[0]}, str[i]=#{str[pair[0]]}, j=#{pair[1]}, pattern[j]=#{pattern[pair[1]]}]"}}"
-
-  return result
+  return matrix[p.length][s.length] == 0
 end

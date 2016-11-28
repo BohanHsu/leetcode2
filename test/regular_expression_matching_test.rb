@@ -37,19 +37,27 @@ describe 'is_match(s, p)' do
     p = ".*"
     expected_result = true
     is_match(s, p).must_equal(expected_result)
-  end
 
-  it 'should work2' do
+    s = "aab"
+    p = "c*a*b"
+    expected_result = true
+    is_match(s, p).must_equal(expected_result)
+
     s = "ab"
     p = ".*.."
     expected_result = true
     is_match(s, p).must_equal(expected_result)
-  end
 
-  it 'should work3' do
     s = "aa"
     p = "a"
     expected_result = false
+    is_match(s, p).must_equal(expected_result)
+  end
+
+  it 'should work2' do
+    s = "aaa"
+    p = "ab*ac*a"
+    expected_result = true
     is_match(s, p).must_equal(expected_result)
   end
 end
