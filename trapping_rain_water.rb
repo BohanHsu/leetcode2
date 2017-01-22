@@ -13,11 +13,10 @@ def my_trap(height)
     from, to = p
     min_height = [height[from], height[to]].min
     (from+1...to).each do |i|
-      if height[i] > min_height
-        return -1
+      if height[i] <= min_height
+        sum += (min_height - height[i])
       end
 
-      sum += (min_height - height[i])
     end
   end
 
@@ -35,11 +34,11 @@ def find_picks(heights)
 
   arr = []
   heights.each_with_index do |h, i|
-    if i == 0 && h > heights[i+1]
+    if i == 0 && h >= heights[i+1]
       arr << i
-    elsif i == heights.length - 1 && h > heights[i-1]
+    elsif i == heights.length - 1 && h >= heights[i-1]
       arr << i
-    elsif h > heights[i-1] && h > heights[i+1]
+    elsif h >= heights[i-1] && h >= heights[i+1]
       arr << i
     end
   end
@@ -59,15 +58,17 @@ def pair_picks(height, picks)
 
     if stack.empty? 
       if !last_pop.nil?
-        #puts "p=#{p}, last_pop=#{last_pop}, stack=#{stack}"
         pairs << [last_pop, p]
       end
-    else
-      #puts "p=#{p}, stack=#{stack}"
-      pairs << [stack[-1], p]
     end
 
     stack << p
+  end
+
+  stack.each_with_index do |e, i|
+    if i != stack.length - 1
+      pairs << [e, stack[i+1]]
+    end
   end
   return pairs
 end

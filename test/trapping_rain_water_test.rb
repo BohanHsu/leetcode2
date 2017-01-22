@@ -27,5 +27,19 @@ describe 'my_trap(height)' do
     height = [5,4,1,2]
     expected_result = 1
     my_trap(height).must_equal(expected_result)
+
+    height = [5,2,1,2,1,5]
+    expected_result = 14
+    my_trap(height).must_equal(expected_result)
+
+    height = [5,5,1,7,1,1,5,2,7,6]
+    expected_result = 23
+    my_trap(height).must_equal(expected_result)
+  end
+
+  it 'should work4' do
+    height = [9,6,8,8,5,6,3]
+    expected_result = 3
+    my_trap(height).must_equal(expected_result)
   end
 end
