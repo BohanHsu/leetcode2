@@ -5,31 +5,48 @@ def palindrome_pairs(words)
   result = []
   root = {}
   palindromes = {}
-  words.each_with_index do |word, idx|
-    insert_arr(root, word.chars, idx, :ltr)
-    insert_arr(root, word.chars.reverse, idx, :rtl)
-  end
+  #words.each_with_index do |word, idx|
+  #  insert_arr(root, word.chars, idx, :ltr)
+  #  insert_arr(root, word.chars.reverse, idx, :rtl)
+  #end
 
-  words.each_with_index do |word, idx|
-    possible_match = search_in_tree(root, word.chars, :rtl)
-    if !possible_match.nil?
-      possible_match.keys.each do |j|
-        if idx != j && is_palindrome(palindromes, words, j, 0, words[j].length-words[idx].length)
-          add_result(result, check_existence, [idx, j])
-        end
+  #words.each_with_index do |word, idx|
+  #  possible_match = search_in_tree(root, word.chars, :rtl)
+  #  if !possible_match.nil?
+  #    possible_match.keys.each do |j|
+  #      if idx != j && is_palindrome(palindromes, words, j, 0, words[j].length-words[idx].length)
+  #        add_result(result, check_existence, [idx, j])
+  #      end
+  #    end
+  #  end
+
+  #  possible_match = search_in_tree(root, word.chars.reverse, :ltr)
+  #  if !possible_match.nil?
+  #    possible_match.keys.each do |j|
+  #      if idx != j && is_palindrome(palindromes, words, j, words[idx].length, words[j].length)
+  #        add_result(result, check_existence, [j, idx])
+  #      end
+  #    end
+  #  end
+  #end
+
+  words.length.times.each do |i|
+    ((i+1)...words.length).each do |j|
+      if words.length[i] < words[j].length
+        tmp = i
+        i = j
+        j = tmp
+      end
+
+      if words[i][0...words[j].length] == words[j].reverse && is_palindrome(palindromes, words, i, words[j].length, words[i].length)
+        add_result(result, check_existence, [i, j])
+      end
+
+      if (words[i].reverse)[0...words[j].length] == words[j] && is_palindrome(palindromes, words, i, 0, words[i].length - words[j].length)
+        add_result(result, check_existence, [j, i])
       end
     end
-
-    possible_match = search_in_tree(root, word.chars.reverse, :ltr)
-    if !possible_match.nil?
-      possible_match.keys.each do |j|
-        if idx != j && is_palindrome(palindromes, words, j, words[idx].length, words[j].length)
-          add_result(result, check_existence, [j, idx])
-        end
-      end
-    end
   end
-
   return result
 end
 
@@ -77,31 +94,31 @@ def is_palindrome(palindromes, words, j, from, to)
 end
 
 #return search arr in root, return node's target_direction
-def search_in_tree(root, arr, target_direction)
-  n = root
-  arr.each do |chr|
-    n = n[chr]
-  end
-
-  return n[target_direction]
-end
-
-def insert_arr(root, arr, idx, direction)
-  n = root
-  if !root.has_key?(direction)
-    root[direction] = {}
-  end
-  root[direction][idx] = nil
-
-  arr.each do |chr|
-    if !n.has_key?(chr)
-      n[chr] = {}
-    end
-    if !n[chr].has_key?(direction)
-      n[chr][direction] = {}
-    end
-    n[chr][direction][idx] = nil
-    
-    n = n[chr]
-  end
-end
+#def search_in_tree(root, arr, target_direction)
+#  n = root
+#  arr.each do |chr|
+#    n = n[chr]
+#  end
+#
+#  return n[target_direction]
+#end
+#
+#def insert_arr(root, arr, idx, direction)
+#  n = root
+#  if !root.has_key?(direction)
+#    root[direction] = {}
+#  end
+#  root[direction][idx] = nil
+#
+#  arr.each do |chr|
+#    if !n.has_key?(chr)
+#      n[chr] = {}
+#    end
+#    if !n[chr].has_key?(direction)
+#      n[chr][direction] = {}
+#    end
+#    n[chr][direction][idx] = nil
+#    
+#    n = n[chr]
+#  end
+#end

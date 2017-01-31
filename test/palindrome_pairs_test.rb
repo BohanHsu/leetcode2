@@ -12,5 +12,10 @@ describe 'palindrome_pairs(words)' do
     expected_result = [[0, 1], [1, 0], [3, 2], [2, 4]]
     actual_result = palindrome_pairs(words).sort
     actual_result.must_equal(expected_result.sort)
+
+    words = ["a","abc","aba",""]
+    expected_result = [[0,3],[3,0],[2,3],[3,2]]
+    actual_result = palindrome_pairs(words).sort
+    actual_result.must_equal(expected_result.sort)
   end
 end
