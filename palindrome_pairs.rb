@@ -13,7 +13,7 @@ def palindrome_pairs(words)
   words.each_with_index do |word, idx|
     possible_match = search_in_tree(root, word.chars, :rtl)
     if !possible_match.nil?
-      possible_match.each do |j|
+      possible_match.keys.each do |j|
         if idx != j && is_palindrome(palindromes, words, j, 0, words[j].length-words[idx].length)
           add_result(result, check_existence, [idx, j])
         end
@@ -22,7 +22,7 @@ def palindrome_pairs(words)
 
     possible_match = search_in_tree(root, word.chars.reverse, :ltr)
     if !possible_match.nil?
-      possible_match.each do |j|
+      possible_match.keys.each do |j|
         if idx != j && is_palindrome(palindromes, words, j, words[idx].length, words[j].length)
           add_result(result, check_existence, [j, idx])
         end
@@ -89,18 +89,18 @@ end
 def insert_arr(root, arr, idx, direction)
   n = root
   if !root.has_key?(direction)
-    root[direction] = []
+    root[direction] = {}
   end
-  root[direction] << idx
+  root[direction][idx] = nil
 
   arr.each do |chr|
     if !n.has_key?(chr)
       n[chr] = {}
     end
     if !n[chr].has_key?(direction)
-      n[chr][direction] = []
+      n[chr][direction] = {}
     end
-    n[chr][direction] << idx
+    n[chr][direction][idx] = nil
     
     n = n[chr]
   end
