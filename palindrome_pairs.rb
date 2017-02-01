@@ -6,9 +6,11 @@ def palindrome_pairs(words)
   result = []
   palindromes = {}
   map = {}
+  word_length = {}
 
   words.each_with_index do |word, i|
     map[word] = i
+    word_length[word.length] = true
   end
 
   words.each_with_index do |word, i|
@@ -19,7 +21,11 @@ def palindrome_pairs(words)
       end
     end
 
-    (0...word.length).each do |k|
+    word_length.keys.each do |j|
+      if j > word.length
+        next
+      end
+      k = word.length - j
       if is_palindrome(palindromes, words, i, 0, k)
         # left is palindrome
         reverse_right = word[k...word.length].reverse
@@ -28,9 +34,9 @@ def palindrome_pairs(words)
         end
       end
 
-      if is_palindrome(palindromes, words, i, k, word.length)
+      if is_palindrome(palindromes, words, i, j, word.length)
         # right is palindrome
-        reverse_left = word[0...k].reverse
+        reverse_left = word[0...j].reverse
         if map.has_key?(reverse_left)
           add_result(result, check_existence, [i, map[reverse_left]])
         end
