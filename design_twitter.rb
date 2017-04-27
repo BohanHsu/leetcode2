@@ -37,7 +37,7 @@ class Twitter
 =end
   def get_news_feed(userId)
     indices = {}
-    (@following[userId] + [userId]).each do |uid|
+    ((@following.has_key?(userId) ? @following[userId] : []) + [userId]).each do |uid|
       indices[uid] = (@tweets[uid].nil? ? 0 : @tweets[uid].length) - 1
     end
 

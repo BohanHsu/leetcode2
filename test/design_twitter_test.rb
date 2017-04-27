@@ -57,3 +57,19 @@ describe '' do
     @twitter.get_news_feed(2).must_equal([10013,10012,10011,10010, 10009,10008])
   end
 end
+
+describe 'run code test' do
+  before do
+    @twitter = Twitter.new
+    @twitter.post_tweet(1,5)
+    @twitter.get_news_feed(1)
+    @twitter.follow(1,2)
+    @twitter.post_tweet(2,6)
+    @twitter.get_news_feed(1)
+    @twitter.unfollow(1,2)
+    @twitter.get_news_feed(1)
+  end
+  it 'should init' do
+    # do nothing
+  end
+end
