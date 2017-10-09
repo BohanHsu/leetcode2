@@ -35,6 +35,6 @@ TESTCODE="test/"$title"_test.rb"
 #echo $TESTCODE
 
 touch $CODE
-touch $TESTCODE
+#touch $TESTCODE
 
-vim -p $CODE $TESTCODE
+#vim -p $CODE $TESTCODE
